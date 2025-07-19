@@ -13,6 +13,7 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
+import { sanitizeInput, validateEmail, validatePhone, validateName, formRateLimiter, logSecurityEvent } from "@/utils/security";
 
 const contactInfo = [
   {
@@ -84,25 +85,91 @@ export const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const sanitizedValue = sanitizeInput(value);
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: sanitizedValue
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Security validations
+    const userIP = 'user-session'; // In production, get real IP
+    
+    if (!formRateLimiter.canAttempt(userIP)) {
+      logSecurityEvent('Rate limit exceeded', { ip: userIP });
+      toast({
+        title: "Error",
+        description: "Demasiados intentos. Espera 15 minutos antes de intentar nuevamente.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate inputs
+    if (!validateName(formData.name)) {
+      toast({
+        title: "Error de validación",
+        description: "Por favor ingresa un nombre válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      toast({
+        title: "Error de validación", 
+        description: "Por favor ingresa un correo electrónico válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (formData.phone && !validatePhone(formData.phone)) {
+      toast({
+        title: "Error de validación",
+        description: "Por favor ingresa un número de teléfono válido.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check honeypot (bot detection)
+    const honeypot = document.querySelector('input[name="website"]') as HTMLInputElement;
+    if (honeypot && honeypot.value) {
+      logSecurityEvent('Bot detected via honeypot', { formData });
+      return; // Silent fail for bots
+    }
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // TODO: Replace with real email service (Supabase Edge Function, EmailJS, etc.)
+      // For now, simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
       toast({
         title: "¡Mensaje enviado exitosamente!",
         description: "Nos pondremos en contacto contigo muy pronto.",
       });
+      
       setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+      formRateLimiter.reset(userIP);
+      
+    } catch (error) {
+      logSecurityEvent('Form submission failed', { error, formData: { ...formData, message: '[REDACTED]' } });
+      toast({
+        title: "Error al enviar",
+        description: "Hubo un problema al enviar tu mensaje. Por favor intenta nuevamente.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -170,6 +237,14 @@ export const ContactSection = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot field for bot detection */}
+                <input
+                  type="text"
+                  name="website"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Input
