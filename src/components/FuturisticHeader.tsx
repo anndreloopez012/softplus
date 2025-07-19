@@ -1,15 +1,29 @@
 import { useState } from "react";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import softplusLogo from "@/assets/softplus-logo.jpg";
 
 export const FuturisticHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  
+  // Header background opacity based on scroll
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [0.8, 0.95]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+    <motion.header 
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border/50"
+      style={{
+        backgroundColor: useTransform(headerOpacity, (o) => `rgba(13, 17, 23, ${o})`),
+        backdropFilter: "blur(20px)",
+      }}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.25, 0.25, 0.75] }}
+    >
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -113,6 +127,6 @@ export const FuturisticHeader = () => {
           </div>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 };

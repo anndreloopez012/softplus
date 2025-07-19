@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -11,6 +13,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import servicesBg from "@/assets/services-bg.jpg";
+import { AppleScrollWrapper, AppleReveal } from "@/components/AppleScrollEffects";
 
 const services = [
   {
@@ -88,17 +91,33 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   return (
-    <section 
+    <motion.section 
+      ref={containerRef}
       id="servicios" 
       className="py-20 relative overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url(${servicesBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
       }}
     >
+      {/* Background with Parallax */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ 
+          y,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url(${servicesBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-dark opacity-50"></div>
@@ -106,7 +125,7 @@ export const ServicesSection = () => {
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <AppleReveal className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 bg-muted/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <span className="text-sm font-medium text-accent">Otros servicios</span>
           </div>
@@ -117,16 +136,18 @@ export const ServicesSection = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Ofrecemos soluciones tecnológicas integrales para impulsar el crecimiento de tu empresa en la era digital
           </p>
-        </div>
+        </AppleReveal>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="bg-card/80 backdrop-blur-xl border-border hover:shadow-tech transition-all duration-300 group hover:-translate-y-2 animate-slide-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <AppleScrollWrapper
+              key={index}
+              className="h-full"
+              yRange={['60px', '0px']}
+              scaleRange={[0.9, 1]}
             >
+              <Card className="bg-card/80 backdrop-blur-xl border-border hover:shadow-tech transition-all duration-300 group hover:-translate-y-2 h-full">
               <CardHeader className="pb-4">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-4 group-hover:shadow-glow transition-all duration-300`}>
                   <service.icon className="w-8 h-8 text-white" />
@@ -157,11 +178,12 @@ export const ServicesSection = () => {
                 </Button>
               </CardContent>
             </Card>
+            </AppleScrollWrapper>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
+        <AppleReveal className="text-center mt-16" delay={0.5}>
           <div className="bg-card/60 backdrop-blur-xl p-8 rounded-2xl border border-border max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">
               ¿Necesitas una solución personalizada?
@@ -187,8 +209,8 @@ export const ServicesSection = () => {
               </Button>
             </div>
           </div>
-        </div>
+        </AppleReveal>
       </div>
-    </section>
+    </motion.section>
   );
 };

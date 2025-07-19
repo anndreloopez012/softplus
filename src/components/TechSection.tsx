@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useScroll } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { AppleReveal, AppleScrollWrapper } from "@/components/AppleScrollEffects";
 
 const techCategories = [
   {
@@ -76,9 +77,18 @@ const partnerLogos = [
 
 export const TechSection = () => {
   const [activeCategory, setActiveCategory] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
-    <section id="tecnologias" className="py-20 bg-gradient-dark relative overflow-hidden">
+    <motion.section 
+      ref={containerRef} 
+      id="tecnologias" 
+      className="py-20 bg-gradient-dark relative overflow-hidden"
+    >
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-10 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
@@ -87,7 +97,7 @@ export const TechSection = () => {
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <AppleReveal className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 bg-muted/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <span className="text-sm font-medium text-primary">NUESTRAS TECNOLOGÍAS</span>
           </div>
@@ -100,10 +110,10 @@ export const TechSection = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Trabajamos con las tecnologías más avanzadas y herramientas líderes en la industria para garantizar soluciones robustas y escalables
           </p>
-        </div>
+        </AppleReveal>
 
         {/* Technology Categories */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <AppleReveal className="flex flex-wrap justify-center gap-4 mb-12" delay={0.2}>
           {techCategories.map((category, index) => (
             <Button
               key={index}
@@ -118,30 +128,33 @@ export const TechSection = () => {
               {category.name}
             </Button>
           ))}
-        </div>
+        </AppleReveal>
 
         {/* Technology Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
           {techCategories[activeCategory].technologies.map((tech, index) => (
-            <div
-              key={index}
-              className="bg-card/60 backdrop-blur-xl p-6 rounded-2xl border border-border hover:shadow-tech transition-all duration-300 hover:-translate-y-2 group animate-slide-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <AppleScrollWrapper
+              key={`${activeCategory}-${index}`}
+              className="h-full"
+              yRange={['40px', '0px']}
+              scaleRange={[0.9, 1]}
             >
-              <div className={`w-12 h-12 ${tech.color} rounded-xl flex items-center justify-center mb-4 group-hover:shadow-glow transition-all duration-300`}>
-                <span className="text-white font-bold text-sm">
-                  {tech.name.substring(0, 2).toUpperCase()}
-                </span>
+              <div className="bg-card/60 backdrop-blur-xl p-6 rounded-2xl border border-border hover:shadow-tech transition-all duration-300 hover:-translate-y-2 group h-full">
+                <div className={`w-12 h-12 ${tech.color} rounded-xl flex items-center justify-center mb-4 group-hover:shadow-glow transition-all duration-300`}>
+                  <span className="text-white font-bold text-sm">
+                    {tech.name.substring(0, 2).toUpperCase()}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                  {tech.name}
+                </h3>
               </div>
-              <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
-                {tech.name}
-              </h3>
-            </div>
+            </AppleScrollWrapper>
           ))}
         </div>
 
         {/* Partners Section */}
-        <div className="text-center mb-12">
+        <AppleReveal className="text-center mb-12" delay={0.4}>
           <h3 className="text-2xl font-bold mb-8">
             <span className="text-foreground">Nuestras </span>
             <span className="bg-gradient-primary bg-clip-text text-transparent">Marcas</span>
@@ -165,10 +178,10 @@ export const TechSection = () => {
               ))}
             </div>
           </div>
-        </div>
+        </AppleReveal>
 
         {/* Stats */}
-        <div className="bg-card/40 backdrop-blur-xl p-8 rounded-2xl border border-border">
+        <AppleReveal className="bg-card/40 backdrop-blur-xl p-8 rounded-2xl border border-border" delay={0.6}>
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-primary mb-2">
               Más de 1,900 clientes confían en SoftPlus
@@ -204,9 +217,8 @@ export const TechSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AppleReveal>
       </div>
-
-    </section>
+    </motion.section>
   );
 };
