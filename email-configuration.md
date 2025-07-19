@@ -1,14 +1,14 @@
 # 📧 Configuración del Sistema de Correo - SoftPlus GT
 
-## ✅ Estado Actual del Sistema
+## 🚨 Estado Actual del Sistema
 
-**IMPLEMENTADO**: El formulario de contacto ahora está configurado con **Nodemailer** para envío real de correos electrónicos.
+**IMPORTANTE**: Actualmente el formulario de contacto NO está enviando correos reales. Es una simulación que solo muestra un mensaje de éxito.
 
 ## 📋 Ubicación del Código
 
-- **Servicio de Email**: `src/utils/emailService.ts`
-- **Formulario**: `src/components/ContactSection.tsx`
-- **Estado**: ✅ **FUNCIONAL** con Nodemailer
+- **Archivo**: `src/components/ContactSection.tsx`
+- **Líneas**: 93-106 (función `handleSubmit`)
+- **Estado**: Simulación con `setTimeout` de 2 segundos
 
 ## ⚙️ Opciones de Configuración de Correo
 
@@ -55,16 +55,13 @@ const transporter = nodemailer.createTransporter({
 
 ## 🎯 A Dónde Van los Mensajes Actualmente
 
-**✅ CORREOS REALES** - Los mensajes se envían automáticamente a:
+**NINGÚN LUGAR** - Es solo una simulación visual.
 
-- **📧 Principal**: ventas@softplusgt.com  
-- **📧 Copia**: contacto@softplusgt.com
+Los usuarios ven este mensaje:
+- ✅ "¡Mensaje enviado exitosamente!"
+- ✅ "Nos pondremos en contacto contigo muy pronto."
 
-**Formato del Email**:
-- ✅ Template HTML profesional con diseño futurista
-- ✅ Incluye toda la información del formulario
-- ✅ Timestamp de envío
-- ✅ Formato texto plano como respaldo
+Pero los datos del formulario NO se envían a ningún correo.
 
 ## 🔧 Para Implementar Correo Real
 
@@ -88,26 +85,20 @@ const transporter = nodemailer.createTransporter({
 - contacto@softplusgt.com
 - soporte@softplusgt.com
 
-## 🔐 Variables de Entorno Necesarias
-
-**IMPORTANTE**: Para que funcione en producción necesitas configurar:
+## 🔐 Variables de Entorno Necesarias (Ejemplo)
 
 ```env
-# Variable requerida para Nodemailer
-SMTP_PASS=tu-app-password-de-gmail
+# Para Nodemailer
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=ventas@softplusgt.com
+SMTP_PASS=tu-app-password
+
+# Para EmailJS
+EMAILJS_SERVICE_ID=service_xxxxxxx
+EMAILJS_TEMPLATE_ID=template_xxxxxxx
+EMAILJS_PUBLIC_KEY=tu_public_key
 ```
-
-**📝 Pasos para configurar Gmail:**
-1. Ir a tu cuenta de Gmail (ventas@softplusgt.com)
-2. Activar "Verificación en 2 pasos" en Seguridad
-3. Generar "Contraseña de aplicación" específica
-4. Usar esa contraseña en la variable `SMTP_PASS`
-
-**⚠️ Configuración actual:**
-- Host: smtp.gmail.com
-- Puerto: 587 (STARTTLS)
-- Usuario: ventas@softplusgt.com
-- Contraseña: ⚠️ **DEBE CONFIGURARSE EN PRODUCCIÓN**
 
 ## 📱 Contactos Alternativos Funcionales
 
@@ -116,21 +107,14 @@ En la página SÍ funcionan:
 - ✅ Teléfono: +502 3011 5830
 - ✅ Email directo: ventas@softplusgt.com (abre cliente de correo)
 
-## 🚀 Para Activar en Producción
+## 🚀 Próximos Pasos
 
-1. **✅ COMPLETADO**: Código implementado con Nodemailer
-2. **⚠️ PENDIENTE**: Configurar variable `SMTP_PASS` en el servidor
-3. **⚠️ PENDIENTE**: Generar contraseña de aplicación en Gmail
-4. **📋 OPCIONAL**: Configurar correos de respaldo adicionales
-
-## 🧪 Testing del Sistema
-
-```javascript
-// Test de conexión (desde consola del navegador)
-import { testEmailConnection } from '@/utils/emailService';
-testEmailConnection();
-```
+1. **Decidir el método de envío** (Supabase, EmailJS, etc.)
+2. **Configurar las credenciales** necesarias
+3. **Actualizar el código** del formulario
+4. **Probar el envío** de correos
+5. **Configurar notificaciones** de respaldo
 
 ---
 
-**✅ SISTEMA LISTO**: El formulario ya está funcional, solo falta configurar la contraseña de Gmail en producción.
+**Nota**: Te recomiendo usar **Supabase con Edge Functions** para máxima seguridad y escalabilidad.

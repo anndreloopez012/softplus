@@ -1,115 +1,73 @@
-# 🚀 SoftPlus GT - Soluciones Tecnológicas Avanzadas
+# Welcome to your Lovable project
 
-## 🌟 Sobre el Proyecto
+## Project info
 
-**SoftPlus GT** es una empresa guatemalteca especializada en desarrollo de software, aplicaciones móviles, sitios web y soluciones tecnológicas innovadoras. Esta es nuestra página web corporativa con diseño futurista que refleja nuestra expertise en tecnología.
+**URL**: https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066
 
-## ✨ Características
+## How can I edit this code?
 
-- 🎨 **Diseño Futurista**: Interfaz moderna con efectos de scroll estilo Apple
-- 📱 **PWA Ready**: Aplicación web progresiva instalable
-- 🔒 **Seguridad Avanzada**: Headers de seguridad, validaciones y protección contra ataques
-- 📧 **Sistema de Correo**: Formulario funcional con Nodemailer
-- 🌙 **Tema Oscuro**: Paleta de colores tecnológica y profesional
-- ⚡ **Performance**: Optimizado para velocidad y experiencia de usuario
+There are several ways of editing your application.
 
-## 🛠️ Tecnologías Utilizadas
+**Use Lovable**
 
-- **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui
-- **Animaciones**: Framer Motion
-- **Build Tool**: Vite
-- **Email**: Nodemailer
-- **PWA**: Service Worker + Manifest
+Simply visit the [Lovable Project](https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066) and start prompting.
 
-## 🚀 Instalación y Desarrollo
+Changes made via Lovable will be committed automatically to this repo.
 
-### Prerrequisitos
-- Node.js (versión 18 o superior)
-- npm o yarn
+**Use your preferred IDE**
 
-### Pasos de instalación
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-```bash
-# Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-# Navegar al directorio
-cd softplus-gt
+Follow these steps:
 
-# Instalar dependencias
-npm install
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-# Iniciar servidor de desarrollo
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-## 📧 Configuración de Correo
+**Edit a file directly in GitHub**
 
-El sistema de correo está configurado con **Nodemailer**. Para activarlo en producción:
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-1. Configurar la variable de entorno:
-```bash
-SMTP_PASS=tu-contraseña-de-aplicacion-gmail
-```
+**Use GitHub Codespaces**
 
-2. Generar contraseña de aplicación en Gmail:
-   - Activar verificación en 2 pasos
-   - Crear contraseña de aplicación específica
-   - Usar esa contraseña en la variable `SMTP_PASS`
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-Ver `email-configuration.md` para más detalles.
+## What technologies are used for this project?
 
-## 🔒 Características de Seguridad
+This project is built with:
 
-- **Headers de Seguridad**: CSP, XSS Protection, CSRF
-- **Validación de Inputs**: Sanitización y validación de formularios
-- **Rate Limiting**: Protección contra spam
-- **Honeypot**: Detección de bots
-- **Logging**: Registro de eventos de seguridad
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-## 📱 PWA (Progressive Web App)
+## How can I deploy this project?
 
-La aplicación incluye:
-- Manifest para instalación
-- Service Worker para cache
-- Iconos optimizados (72x72 a 512x512)
-- Funcionamiento offline básico
+Simply open [Lovable](https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066) and click on Share -> Publish.
 
-## 🎯 Servicios que Ofrecemos
+## Can I connect a custom domain to my Lovable project?
 
-- **Desarrollo Web**: Sitios web modernos y responsivos
-- **Aplicaciones Móviles**: iOS y Android nativas
-- **E-commerce**: Tiendas online completas
-- **Software Empresarial**: Sistemas ERP y CRM
-- **Consultorías TI**: Asesoría tecnológica especializada
+Yes, you can!
 
-## 📞 Contacto
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-- **Teléfono**: +502 3011 5830
-- **Email**: ventas@softplusgt.com
-- **WhatsApp**: +502 3011 5830
-- **Ubicación**: Ciudad de Guatemala, Zona 10
-
-## 🌍 Deploy y Producción
-
-### Variables de Entorno Requeridas
-```env
-SMTP_PASS=contraseña-de-aplicacion-gmail
-```
-
-### Scripts Disponibles
-```bash
-npm run dev          # Desarrollo
-npm run build        # Build de producción
-npm run preview      # Preview del build
-npm run lint         # Linting del código
-```
-
-## 📄 Licencia
-
-© 2024 SoftPlus GT. Todos los derechos reservados.
-
----
-
-**Desarrollado con ❤️ por el equipo de SoftPlus GT**
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

@@ -14,7 +14,6 @@ import {
   CheckCircle
 } from "lucide-react";
 import { sanitizeInput, validateEmail, validatePhone, validateName, formRateLimiter, logSecurityEvent } from "@/utils/security";
-import { sendContactEmail } from "@/utils/emailService";
 
 const contactInfo = [
   {
@@ -149,22 +148,17 @@ export const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      // Send email using Nodemailer
-      await sendContactEmail(formData);
+      // TODO: Replace with real email service (Supabase Edge Function, EmailJS, etc.)
+      // For now, simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       toast({
         title: "¡Mensaje enviado exitosamente!",
-        description: "Tu mensaje ha sido enviado a ventas@softplusgt.com. Nos pondremos en contacto contigo muy pronto.",
+        description: "Nos pondremos en contacto contigo muy pronto.",
       });
       
       setFormData({ name: '', email: '', phone: '', company: '', message: '' });
       formRateLimiter.reset(userIP);
-      
-      // Log successful submission
-      logSecurityEvent('Contact form submitted successfully', { 
-        email: formData.email, 
-        name: formData.name 
-      });
       
     } catch (error) {
       logSecurityEvent('Form submission failed', { error, formData: { ...formData, message: '[REDACTED]' } });
