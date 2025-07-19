@@ -8,33 +8,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Futuristic Tech Theme - Inspired by SoftPlus GT */
+    --background: 220 23% 5%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 18% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 18% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Electric Blue/Cyan */
+    --primary: 195 100% 50%;
+    --primary-foreground: 220 23% 5%;
+    --primary-glow: 195 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Purple/Violet */
+    --secondary: 260 100% 60%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Dark with blue tint */
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Neon Green */
+    --accent: 120 100% 50%;
+    --accent-foreground: 220 23% 5%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 195 100% 50%;
+
+    /* Custom Futuristic Colors */
+    --tech-blue: 210 100% 56%;
+    --tech-purple: 260 100% 60%;
+    --tech-cyan: 180 100% 50%;
+    --neon-green: 120 100% 50%;
+    --electric-blue: 195 100% 50%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tech-purple)));
+    --gradient-tech: linear-gradient(90deg, hsl(var(--tech-blue)), hsl(var(--tech-cyan)));
+    --gradient-neon: linear-gradient(45deg, hsl(var(--accent)), hsl(var(--primary-glow)));
+    --gradient-dark: linear-gradient(180deg, hsl(var(--background)), hsl(220 23% 3%));
+    
+    /* Shadows and Glows */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    --shadow-neon: 0 0 20px hsl(var(--accent) / 0.4);
+    --shadow-tech: 0 10px 30px hsl(var(--primary) / 0.2);
 
     --radius: 0.5rem;
 
@@ -56,33 +80,34 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Enhanced Dark Theme */
+    --background: 220 25% 3%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 220 20% 6%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 220 20% 6%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 180 100% 60%;
+    --primary-foreground: 220 25% 3%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 270 100% 70%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 220 10% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 120 100% 60%;
+    --accent-foreground: 220 25% 3%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 180 100% 60%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,5 +126,16 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
   }
 }
