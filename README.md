@@ -1,22 +1,16 @@
-# Welcome to your Lovable project
+# SoftPlus GT - Sitio Web Corporativo
 
-## Project info
+## Información del Proyecto
 
-**URL**: https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066
+Sitio web corporativo desarrollado con tecnologías modernas para SoftPlus GT, empresa líder en desarrollo de software en Guatemala.
 
-## How can I edit this code?
+## Cómo editar este código
 
-There are several ways of editing your application.
+Hay varias formas de editar esta aplicación:
 
-**Use Lovable**
+**Usar tu IDE preferido**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Si quieres trabajar localmente usando tu propio IDE, puedes clonar este repo y hacer push de los cambios.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -60,14 +54,25 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Características Principales
 
-Simply open [Lovable](https://lovable.dev/projects/70d38746-971b-4158-9135-6519cc999066) and click on Share -> Publish.
+- ✨ **Diseño Moderno**: Interfaz futurística con efectos visuales avanzados
+- 📱 **PWA Ready**: Aplicación web progresiva para instalación móvil
+- 🔒 **Seguridad**: Sistema de protección contra ataques y validaciones robustas
+- 📧 **Sistema de Contacto**: Formulario funcional con EmailJS
+- 🌙 **Dark Theme**: Tema oscuro optimizado para mejor experiencia
+- ⚡ **Performance**: Optimizado para carga rápida y navegación fluida
 
-## Can I connect a custom domain to my Lovable project?
+## Configuración del Sistema de Correo
 
-Yes, you can!
+El formulario de contacto está configurado con EmailJS. Para activarlo:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Revisa el archivo `email-configuration.md` para instrucciones detalladas
+2. Configura las credenciales de EmailJS en `src/components/ContactSection.tsx`
+3. Los mensajes se enviarán a: ventas@softplusgt.com
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Cómo desplegar este proyecto
+
+1. **Netlify/Vercel**: Conecta el repositorio para despliegue automático
+2. **GitHub Pages**: Usa `npm run build` y despliega la carpeta `dist`
+3. **Tu propio servidor**: Ejecuta `npm run build` y sube el contenido

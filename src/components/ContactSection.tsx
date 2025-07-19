@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,13 @@ import {
   CheckCircle
 } from "lucide-react";
 import { sanitizeInput, validateEmail, validatePhone, validateName, formRateLimiter, logSecurityEvent } from "@/utils/security";
+
+// EmailJS Configuration - Replace with your actual credentials
+const EMAILJS_CONFIG = {
+  SERVICE_ID: 'service_xxxxxxx',    // Replace with your EmailJS Service ID
+  TEMPLATE_ID: 'template_xxxxxxx',  // Replace with your EmailJS Template ID
+  PUBLIC_KEY: 'tu_public_key'       // Replace with your EmailJS Public Key
+};
 
 const contactInfo = [
   {
@@ -148,9 +156,22 @@ export const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      // TODO: Replace with real email service (Supabase Edge Function, EmailJS, etc.)
-      // For now, simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Send email using EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        message: formData.message,
+        to_email: 'ventas@softplusgt.com'
+      };
+
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
       
       toast({
         title: "¡Mensaje enviado exitosamente!",
@@ -161,7 +182,7 @@ export const ContactSection = () => {
       formRateLimiter.reset(userIP);
       
     } catch (error) {
-      logSecurityEvent('Form submission failed', { error, formData: { ...formData, message: '[REDACTED]' } });
+      logSecurityEvent('EmailJS submission failed', { error, formData: { ...formData, message: '[REDACTED]' } });
       toast({
         title: "Error al enviar",
         description: "Hubo un problema al enviar tu mensaje. Por favor intenta nuevamente.",
